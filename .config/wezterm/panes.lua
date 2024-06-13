@@ -38,7 +38,15 @@ function keys.apply_to_config(config)
         { key = "l", mods = "CTRL", action = ActivatePaneDirection("Right") },
 
         -- close pane
-        { key = "S", mods = "CTRL|SHIFT", action = CloseCurrentPane { confirm = false } }
+		{
+			key = "s",
+			mods = "CTRL|ALT",
+			action = wezterm.action_callback(function(window, pane)
+				local active_tab = window:active_tab()
+				local panes = active_tab:panes()
+				window:perform_action(CloseCurrentPane { confirm = #panes == 1 }, pane)
+			end)
+		}
     })
 end
 
@@ -79,3 +87,4 @@ function panes.apply_to_config(config)
 end
 
 return panes
+

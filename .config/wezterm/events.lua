@@ -24,3 +24,4 @@ function events.apply_to_config(config)
 end
 
 return events
+

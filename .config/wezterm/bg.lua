@@ -2,12 +2,10 @@ local wezterm = require("wezterm")
 
 local action = wezterm.action
 local ActivateKeyTable = action.ActivateKeyTable
-local Multiple = action.Multiple
 local PopKeyTable = action.PopKeyTable
-local EmitEvent = action.EmitEvent
 local Nop = action.Nop
 
-bg = {}
+local bg = {}
 
 local keys = {}
 function keys.apply_to_config(config)
@@ -34,7 +32,7 @@ function key_tables.apply_to_config(config)
                     wezterm.emit("update-state", { window_background_image_hsb = defaults.window_background_image_hsb })
                 end
 
-                window_background_image_hsb.brightness = window_background_image_hsb.brightness + 0.05
+                window_background_image_hsb.brightness = window_background_image_hsb.brightness + 0.005
                 if window_background_image_hsb.brightness > 2 then
                     window_background_image_hsb.brightness = 2
                 end
@@ -62,7 +60,7 @@ function key_tables.apply_to_config(config)
                     wezterm.emit("update-state", { window_background_image_hsb = defaults.window_background_image_hsb })
                 end
 
-                window_background_image_hsb.brightness = window_background_image_hsb.brightness - 0.05
+                window_background_image_hsb.brightness = window_background_image_hsb.brightness - 0.005
                 if window_background_image_hsb.brightness < 0 then
                     window_background_image_hsb.brightness = 0
                 end
@@ -151,7 +149,7 @@ function key_tables.apply_to_config(config)
                 window:set_config_overrides(overrides)
             end)
         },
-        
+	
         -- toggle background image
         { key = "b", action = Nop },
         -- cycle backward background image
@@ -167,7 +165,7 @@ function key_tables.apply_to_config(config)
                     wezterm.emit("update-state", { window_background_image = defaults.window_background_image })
                 end
 
-                local dir = util.expand_relative_path("bgs/")
+                local dir = wezterm.home_dir .. "/.wallpapers/"
 
                 local bgs = {}
                 local count = 0
@@ -212,7 +210,7 @@ function key_tables.apply_to_config(config)
                     wezterm.emit("update-state", { window_background_image = defaults.window_background_image })
                 end
 
-                local dir = util.expand_relative_path("bgs/")
+                local dir = wezterm.home_dir .. "/.wallpapers/"
 
                 local bgs = {}
                 local count = 0
@@ -333,3 +331,4 @@ function bg.apply_to_config(config)
 end
 
 return bg
+

@@ -19,11 +19,11 @@ function keys.apply_to_config(config)
         -- activate the tab to the right of the current tab
         { key = "]", mods = "CTRL", action = ActivateTabRelative(1) },
         -- close the current tab
-        { key = "T", mods = "CTRL|SHIFT", action = CloseCurrentTab { confirm = false } },
+        { key = "t", mods = "CTRL|ALT", action = CloseCurrentTab { confirm = false } },
         -- move the current tab to the left
-        { key = "{", mods = "CTRL|SHIFT", action = MoveTabRelative(-1) },
+        { key = "{", mods = "CTRL|ALT", action = MoveTabRelative(-1) },
         -- move the current tab to the right
-        { key = "}", mods = "CTRL|SHIFT", action = MoveTabRelative(1) }
+        { key = "}", mods = "CTRL|ALT", action = MoveTabRelative(1) }
     })
 
     -- activate a tab by its index
@@ -37,3 +37,4 @@ function tabs.apply_to_config(config)
 end
 
 return tabs
+

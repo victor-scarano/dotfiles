@@ -4,7 +4,6 @@ local action = wezterm.action
 local ActivateKeyTable = action.ActivateKeyTable
 local IncreaseFontSize = action.IncreaseFontSize
 local DecreaseFontSize = action.DecreaseFontSize
-local ResetFontSize = action.ResetFontSize
 local PopKeyTable = action.PopKeyTable
 
 local font = {}
@@ -12,21 +11,16 @@ local font = {}
 local keys = {}
 function keys.apply_to_config(config)
     util.insert_keys(config, {
-        -- activate `font` key table
-        { key = "f", mods = "CTRL", action = ActivateKeyTable { name = "font", one_shot = false } },
-    })
+		-- activate `font` key table
+		{ key = "f", mods = "CTRL", action = ActivateKeyTable { name = "font", one_shot = false } },
+		{ key = "-", mods = "CTRL", action = DecreaseFontSize },
+		{ key = "=", mods = "CTRL", action = IncreaseFontSize }
+	})
 end
 
 local key_tables = {}
 function key_tables.apply_to_config(config)
     config.key_tables.font = {
-        -- increase font size
-        { key = "=", action = IncreaseFontSize },
-        -- decrease font size
-        { key = "-", action = DecreaseFontSize },
-        -- reset font size
-        { key = "0", action = ResetFontSize },
-
         -- cycle backward font
         {
             key = "[",
@@ -86,7 +80,7 @@ function key_tables.apply_to_config(config)
             action = wezterm.action_callback(function(window)
                 local defaults = util.load_json("defaults")
                 local options = util.load_json("options")
-                
+		
                 wezterm.emit("update-state", { font = defaults.font })
 
                 local overrides = window:get_config_overrides() or {}
@@ -106,3 +100,4 @@ function font.apply_to_config(config)
 end
 
 return font
+
